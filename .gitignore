@@ -250,3 +250,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# ESLint cache
+.eslintcache
