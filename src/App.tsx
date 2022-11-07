@@ -1,44 +1,43 @@
-import React, { useState } from 'react'
-import reactLogo from '@/assets/icons/react.svg'
+import React from 'react'
 import './App.css'
+import { useAppSelector } from '@/hooks/useAppSelector'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { login } from '@/redux/auth/auth.slice'
 
 function App(): JSX.Element {
-  const [count, setCount] = useState(0)
+  const auth = useAppSelector((state) => state.auth)
+  const dispatch = useAppDispatch()
 
+  const render = (): JSX.Element => {
+    if (auth.loading === 'pending') {
+      return <div>Fetching</div>
+    }
+
+    if (auth.user != null) {
+      return (
+        <div>
+          <p>
+            Name: {auth.user.name.first} {auth.user.name.last}
+          </p>
+          <p>Email: {auth.user.email}</p>
+        </div>
+      )
+    }
+
+    return <div>No User</div>
+  }
   return (
     <div className="App">
-      <div>
-        <a
-          href="https://vitejs.dev"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src="/vite.svg"
-            className="logo"
-            alt="Vite logo"
-          />
-        </a>
-        <a
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src={reactLogo}
-            className="logo react"
-            alt="React logo"
-          />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <button
+          onClick={() => {
+            void dispatch(login())
+          }}
+        >
+          Fetch user
+        </button>
+        {render()}
       </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </div>
   )
 }
