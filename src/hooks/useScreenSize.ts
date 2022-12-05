@@ -1,6 +1,7 @@
 // @mui
 import { useTheme, Breakpoint } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { useEffect, useState } from 'react'
 
 // ----------------------------------------------------------------------
 
@@ -37,19 +38,43 @@ const useResponsive = (query: Query, start?: Value, end?: Value): ReturnType => 
 }
 
 // ----------------------------------------------------------------------
+type UseScreenType = () => {
+  isMobile: boolean
+  isTablet: boolean
+  isLaptop: boolean
+  isDesktop: boolean
+  isTV: boolean
+  size: {
+    width: number
+    height: number
+  }
+}
 
-type ScreenType = 'isMobile' | 'isTablet' | 'isLaptop' | 'isDesktop' | 'isTV'
-
-const useScreen = (): {
-  [key in ScreenType]: boolean
-} => {
+const useScreenSize: UseScreenType = () => {
+  // Detect device according to breakpoints.
   const isMobile = useResponsive('down', 'tablet')
   const isTablet = useResponsive('between', 'tablet', 'laptop')
   const isLaptop = useResponsive('between', 'laptop', 'desktop')
   const isDesktop = useResponsive('between', 'desktop', 'tv')
   const isTV = useResponsive('up', 'tv')
 
-  return { isMobile, isTablet, isLaptop, isDesktop, isTV }
+  // Compute screen width and height.
+  const [size, setSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 })
+
+  useEffect(() => {
+    const handleWindowResize = (): void => {
+      setSize({ width: window.innerWidth, height: window.innerHeight })
+    }
+
+    // Get initial window size.
+    handleWindowResize()
+
+    window.addEventListener('resize', handleWindowResize)
+
+    return () => window.removeEventListener('resize', handleWindowResize)
+  }, [])
+
+  return { isMobile, isTablet, isLaptop, isDesktop, isTV, size }
 }
 
-export default useScreen
+export default useScreenSize

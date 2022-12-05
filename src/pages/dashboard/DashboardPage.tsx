@@ -1,8 +1,8 @@
 import React from 'react'
-import useScreen from '@/hooks/useScreen'
+import useScreenSize from '@/hooks/useScreenSize'
 
 const DashboardPage = (): JSX.Element => {
-  const { isMobile, isTablet, isLaptop, isDesktop, isTV } = useScreen()
+  const { isMobile, isTablet, isLaptop, isDesktop, isTV, size: screenSize } = useScreenSize()
 
   return (
     <div>
@@ -11,6 +11,8 @@ const DashboardPage = (): JSX.Element => {
       <div>{String(isLaptop)}</div>
       <div>{String(isDesktop)}</div>
       <div>{String(isTV)}</div>
+      <div>{String(screenSize.width)}</div>
+      <div>{String(screenSize.height)}</div>
     </div>
   )
 }
