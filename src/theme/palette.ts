@@ -1,4 +1,4 @@
-import { alpha, PaletteOptions } from '@mui/material/styles'
+import { alpha } from '@mui/material/styles'
 
 // ----------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ const COMMON = {
   }
 }
 
-export default function palette(themeMode: 'light' | 'dark'): PaletteOptions {
+export default function palette(themeMode: 'light' | 'dark') {
   const light = {
     ...COMMON,
     mode: 'light',

@@ -1,27 +1,25 @@
-import { TypographyOptions } from '@mui/material/styles/createTypography'
-import { BreakpointsOptions } from '@mui/material'
+import { Theme } from '@mui/material/styles'
 
 const BASE_FONTSIZE: number = 16
 const FONT_PRIMARY = 'Public Sans, sans-serif' // Google Font
 // const FONT_SECONDARY = 'CircularStd, sans-serif'; // Local Font
 
-/*
-const remToPx = (value: string): number => {
+/* function remToPx(value: string): number {
   return Math.round(parseFloat(value) * BASE_FONTSIZE)
-}
-*/
+} */
 
-const pxToRem = (value: number): string => {
+function pxToRem(value: number): string {
   return `${value / BASE_FONTSIZE}rem`
 }
 
-const typography = (breakpoints: BreakpointsOptions): TypographyOptions => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export default function typography(theme: Theme) {
   // Compute responsive font size.
   const responsiveFontSizes = (tablet?: number, laptop?: number, desktop?: number, tv?: number): object => {
     const tabletFontSize =
       tablet != null
         ? {
-            [`@media (min-width:${breakpoints.values?.tablet ?? 600}px)`]: {
+            [theme.breakpoints.up('tablet')]: {
               fontSize: pxToRem(tablet)
             }
           }
@@ -30,7 +28,7 @@ const typography = (breakpoints: BreakpointsOptions): TypographyOptions => {
     const laptopFontSize =
       laptop != null
         ? {
-            [`@media (min-width:${breakpoints.values?.laptop ?? 900}px)`]: {
+            [theme.breakpoints.up('laptop')]: {
               fontSize: pxToRem(laptop)
             }
           }
@@ -39,7 +37,7 @@ const typography = (breakpoints: BreakpointsOptions): TypographyOptions => {
     const desktopFontSize =
       desktop != null
         ? {
-            [`@media (min-width:${breakpoints.values?.desktop ?? 1200}px)`]: {
+            [theme.breakpoints.up('desktop')]: {
               fontSize: pxToRem(desktop)
             }
           }
@@ -48,7 +46,7 @@ const typography = (breakpoints: BreakpointsOptions): TypographyOptions => {
     const tvFontSize =
       tv != null
         ? {
-            [`@media (min-width:${breakpoints.values?.tv ?? 1536}px)`]: {
+            [theme.breakpoints.up('tv')]: {
               fontSize: pxToRem(tv)
             }
           }
@@ -133,7 +131,5 @@ const typography = (breakpoints: BreakpointsOptions): TypographyOptions => {
       fontSize: pxToRem(14),
       textTransform: 'capitalize'
     }
-  }
+  } as const
 }
-
-export default typography

@@ -1,6 +1,3 @@
-// @mui
-import { BreakpointsOptions } from '@mui/material'
-
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
     xs: false
@@ -16,7 +13,7 @@ declare module '@mui/material/styles' {
   }
 }
 
-const breakpoints: BreakpointsOptions = {
+export default {
   values: {
     mobile: 0,
     tablet: 640,
@@ -24,6 +21,4 @@ const breakpoints: BreakpointsOptions = {
     desktop: 1280,
     tv: 1536
   }
-}
-
-export default breakpoints
+} as const

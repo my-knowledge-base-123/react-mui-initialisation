@@ -1,7 +1,7 @@
 import React from 'react'
 import { GlobalStyles as MUIGlobalStyles } from '@mui/material'
 
-const GlobalStyles = (): React.ReactElement => {
+export default function GlobalStyles(): React.ReactElement {
   return (
     <MUIGlobalStyles
       styles={{
@@ -50,5 +50,3 @@ const GlobalStyles = (): React.ReactElement => {
     />
   )
 }
-
-export default GlobalStyles

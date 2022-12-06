@@ -1,10 +1,14 @@
 import React from 'react'
 import useScreenSize from '@/hooks/useScreenSize'
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
 const DashboardPage = (): JSX.Element => {
   const { isMobile, isTablet, isLaptop, isDesktop, isTV, size: screenSize } = useScreenSize()
 
+  const theme = useTheme()
+
+  console.log(theme.typography.fontFamily)
   return (
     <div>
       <div>{String(isMobile)}</div>
@@ -21,6 +25,7 @@ const DashboardPage = (): JSX.Element => {
       <Typography variant={'h5'}>H5 Typography</Typography>
       <Typography variant={'h6'}>H6 Typography</Typography>
       <Typography variant={'subtitle2'}>Subtitle 1</Typography>
+      <Button variant="contained">Click Me</Button>
     </div>
   )
 }

@@ -1,31 +1,44 @@
 import React, { useMemo } from 'react'
 // @mui
-import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider, ThemeOptions } from '@mui/material/styles'
-import { CssBaseline } from '@mui/material'
+import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles'
+import { CssBaseline, Direction } from '@mui/material'
 // Custom theme
 import GlobalStyles from './globalStyles'
 import palette from './palette'
 import breakpoints from './breakpoints'
-import typography from '@/theme/typography'
+import typography from './typography'
+import shadows from './shadows'
+import customShadows from './customShadows'
+import components from './components'
 
 interface ThemeProviderProps {
   children?: React.ReactNode
 }
 
 const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const themeOptions = useMemo<ThemeOptions>(
-    () => ({
-      palette: palette('light'),
-      breakpoints,
-      typography: typography(breakpoints),
-      zIndex: {},
-      transitions: {},
-      components: {}
-    }),
+  const themeMode = 'light'
+  const themeDirection: Direction = 'ltr'
+
+  const themeOptions = useMemo(
+    () =>
+      ({
+        palette: palette(themeMode),
+        breakpoints,
+        shape: { borderRadius: 8 },
+        direction: themeDirection,
+        zIndex: {},
+        transitions: {},
+        shadows: shadows(themeMode),
+        customShadows: customShadows(themeMode)
+      } as const),
     []
   )
 
-  const theme = createTheme(themeOptions)
+  let theme = createTheme(themeOptions)
+  theme = createTheme(theme, {
+    typography: typography(theme),
+    components: components(theme)
+  })
 
   return (
     <StyledEngineProvider injectFirst>
