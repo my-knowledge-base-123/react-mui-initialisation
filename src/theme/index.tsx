@@ -6,6 +6,7 @@ import { CssBaseline } from '@mui/material'
 import GlobalStyles from './globalStyles'
 import palette from './palette'
 import breakpoints from './breakpoints'
+import typography from '@/theme/typography'
 
 interface ThemeProviderProps {
   children?: React.ReactNode
@@ -16,7 +17,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     () => ({
       palette: palette('light'),
       breakpoints,
-      typography: {},
+      typography: typography(breakpoints),
       zIndex: {},
       transitions: {},
       components: {}
