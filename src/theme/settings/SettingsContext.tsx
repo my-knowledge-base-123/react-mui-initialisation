@@ -4,7 +4,7 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 // utils
 import localStorageAvailable from '@/utils/localStorageAvailable'
 //
-import { SettingsContextProps, ThemeColorPresetsValue, ThemeDirectionValue, ThemeLayoutValue, ThemeModeValue } from './types'
+import { SettingsContextProps, ThemeColorPresetsValue, ThemeContrastValue, ThemeDirectionValue, ThemeLayoutValue, ThemeModeValue } from './types'
 import { defaultSettings } from './defaultSettings'
 import { colorPresetsOption, defaultColorPreset, getColorPresets } from './colorPresets'
 
@@ -22,9 +22,9 @@ const initialState: SettingsContextProps = {
   // Layout
   toggleLayout: () => {},
   changeLayout: () => {},
-  // // Contrast
-  // onToggleContrast: () => {},
-  // onChangeContrast: () => {},
+  // Contrast
+  toggleContrast: () => {},
+  changeContrast: () => {},
   // Color
   changeColorPresets: () => {},
   colorPresets: defaultColorPreset,
@@ -115,6 +115,19 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
     [setSettings, settings]
   )
 
+  // Contrast
+  const toggleContrast = useCallback(() => {
+    const themeContrast = settings.themeContrast === 'default' ? 'bold' : 'default'
+    setSettings({ ...settings, themeContrast })
+  }, [setSettings, settings])
+
+  const changeContrast = useCallback(
+    (contrast: ThemeContrastValue) => {
+      setSettings({ ...settings, themeContrast: contrast })
+    },
+    [setSettings, settings]
+  )
+
   // Color Presets
   const changeColorPresets = useCallback(
     (colorPresets: ThemeColorPresetsValue) => {
@@ -137,6 +150,9 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       // Layout
       toggleLayout,
       changeLayout,
+      // Contrast
+      toggleContrast,
+      changeContrast,
       // Color Presets
       changeColorPresets,
       colorPresets: getColorPresets(settings.themeColorPresets),
@@ -154,6 +170,9 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       // Layout
       toggleLayout,
       changeLayout,
+      // Contrast
+      toggleContrast,
+      changeContrast,
       // Color Presets
       changeColorPresets
     ]

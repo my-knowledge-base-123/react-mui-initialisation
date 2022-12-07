@@ -44,9 +44,9 @@ export type SettingsContextProps = SettingsValueProps & {
   toggleLayout: VoidFunction
   changeLayout: (layout: ThemeLayoutValue) => void
 
-  // // Contrast
-  // onToggleContrast: VoidFunction
-  // onChangeContrast: (event: React.ChangeEvent<HTMLInputElement>) => void
+  // Contrast
+  toggleContrast: VoidFunction
+  changeContrast: (contrast: ThemeContrastValue) => void
 
   // Color
   changeColorPresets: (colorPresets: ThemeColorPresetsValue) => void
