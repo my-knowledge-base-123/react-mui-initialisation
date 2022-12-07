@@ -1,16 +1,22 @@
 import React from 'react'
-import useScreenSize from '@/hooks/useScreenSize'
+// @mui
 import { Button, Typography } from '@mui/material'
+// theme
 import { useThemeSettingsContext } from '@/theme/settings'
+// hooks
+import useScreenSize from '@/hooks/useScreenSize'
+// config
+import { APP_NAME } from '@/config'
 
 const DashboardPage = (): JSX.Element => {
   const { isMobile, isTablet, isLaptop, isDesktop, isTV, size: screenSize } = useScreenSize()
 
-  //
   const { changeColorPresets, changeMode, toggleMode, toggleDirection, changeLayout, toggleContrast, toggleStretch, resetSettings } = useThemeSettingsContext()
 
   return (
     <div>
+      <h1>{APP_NAME}</h1>
+
       <div>{String(isMobile)}</div>
       <div>{String(isTablet)}</div>
       <div>{String(isLaptop)}</div>
