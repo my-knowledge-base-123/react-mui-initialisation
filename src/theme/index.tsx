@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react'
 // @mui
 import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles'
-import { CssBaseline, Direction } from '@mui/material'
+import { CssBaseline } from '@mui/material'
 // Custom theme
+import { useSettingsContext } from '@/theme/settings/SettingsContext'
 import GlobalStyles from './globalStyles'
 import palette from './palette'
 import breakpoints from './breakpoints'
@@ -16,8 +17,7 @@ interface ThemeProviderProps {
 }
 
 const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const themeMode = 'light'
-  const themeDirection: Direction = 'ltr'
+  const { themeMode, themeDirection } = useSettingsContext()
 
   const themeOptions = useMemo(
     () =>
@@ -31,7 +31,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         shadows: shadows(themeMode),
         customShadows: customShadows(themeMode)
       } as const),
-    []
+    [themeDirection, themeMode]
   )
 
   let theme = createTheme(themeOptions)

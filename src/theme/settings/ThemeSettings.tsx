@@ -1,5 +1,6 @@
 import React from 'react'
 import ThemeColorPresets from '@/theme/settings/ThemeColorPresets'
+import ThemeDirection from '@/theme/settings/ThemeDirection'
 
 // ----------------------------------------------------------------------
 interface Props {
@@ -7,5 +8,9 @@ interface Props {
 }
 
 export default function ThemeSettings({ children }: Props) {
-  return <ThemeColorPresets>{children}</ThemeColorPresets>
+  return (
+    <ThemeColorPresets>
+      <ThemeDirection>{children}</ThemeDirection>
+    </ThemeColorPresets>
+  )
 }

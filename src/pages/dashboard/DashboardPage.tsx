@@ -1,18 +1,13 @@
 import React from 'react'
 import useScreenSize from '@/hooks/useScreenSize'
 import { Button, Typography } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
 import { useThemeSettingsContext } from '@/theme/settings'
 
 const DashboardPage = (): JSX.Element => {
   const { isMobile, isTablet, isLaptop, isDesktop, isTV, size: screenSize } = useScreenSize()
 
   //
-  const theme = useTheme()
-  console.log(theme.typography.fontFamily)
-
-  //
-  const { changeColorPresets, changeMode, toggleMode } = useThemeSettingsContext()
+  const { changeColorPresets, changeMode, toggleMode, toggleDirection } = useThemeSettingsContext()
 
   return (
     <div>
@@ -47,7 +42,9 @@ const DashboardPage = (): JSX.Element => {
       >
         To Purple
       </Button>
+
       <br />
+
       <Button
         variant="contained"
         onClick={() => changeMode('dark')}
@@ -59,6 +56,15 @@ const DashboardPage = (): JSX.Element => {
         onClick={toggleMode}
       >
         Toggle Mode
+      </Button>
+
+      <br />
+
+      <Button
+        variant="contained"
+        onClick={toggleDirection}
+      >
+        Toggle Direction
       </Button>
     </div>
   )

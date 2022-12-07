@@ -35,11 +35,11 @@ export type SettingsContextProps = SettingsValueProps & {
   toggleMode: VoidFunction
   changeMode: (mode: string) => void
 
-  // // Direction
-  // onToggleDirection: VoidFunction
-  // onChangeDirection: (event: React.ChangeEvent<HTMLInputElement>) => void
-  // onChangeDirectionByLang: (lang: string) => void
-  //
+  // Direction
+  toggleDirection: VoidFunction
+  changeDirection: (direction: string) => void
+  changeDirectionByLang: (lang: string) => void
+
   // // Layout
   // onToggleLayout: VoidFunction
   // onChangeLayout: (event: React.ChangeEvent<HTMLInputElement>) => void

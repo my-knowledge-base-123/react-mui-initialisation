@@ -1,8 +1,8 @@
-import React, { createContext, useCallback, useContext, useMemo } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useMemo } from 'react'
 // hooks
 import useLocalStorage from '@/hooks/useLocalStorage'
 // utils
-// import localStorageAvailable from '@/utils/localStorageAvailable'
+import localStorageAvailable from '@/utils/localStorageAvailable'
 //
 import { SettingsContextProps } from './types'
 import { defaultSettings } from './defaultSettings'
@@ -15,10 +15,10 @@ const initialState: SettingsContextProps = {
   // Mode
   toggleMode: () => {},
   changeMode: () => {},
-  // // Direction
-  // onToggleDirection: () => {},
-  // onChangeDirection: () => {},
-  // onChangeDirectionByLang: () => {},
+  // Direction
+  toggleDirection: () => {},
+  changeDirection: () => {},
+  changeDirectionByLang: () => {},
   // // Layout
   // onToggleLayout: () => {},
   // onChangeLayout: () => {},
@@ -56,11 +56,17 @@ interface SettingsProviderProps {
 export function SettingsProvider({ children }: SettingsProviderProps) {
   const [settings, setSettings] = useLocalStorage('settings', defaultSettings)
 
-  // const storageAvailable = localStorageAvailable()
-  //
-  // const langStorage = storageAvailable ? localStorage.getItem('i18nextLng') : ''
-  //
-  // const isArabic = langStorage === 'ar'
+  const storageAvailable = localStorageAvailable()
+
+  const langStorage = storageAvailable ? localStorage.getItem('i18nextLng') : ''
+
+  const isArabic = langStorage === 'ar'
+
+  useEffect(() => {
+    if (isArabic) {
+      changeDirectionByLang('ar')
+    }
+  }, [isArabic])
 
   // Mode
   const toggleMode = useCallback(() => {
@@ -72,6 +78,28 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
     (mode: string) => {
       const themeMode = mode
       setSettings({ ...settings, themeMode })
+    },
+    [setSettings, settings]
+  )
+
+  // Direction
+  const toggleDirection = useCallback(() => {
+    const themeDirection = settings.themeDirection === 'rtl' ? 'ltr' : 'rtl'
+    setSettings({ ...settings, themeDirection })
+  }, [setSettings, settings])
+
+  const changeDirection = useCallback(
+    (direction: string) => {
+      const themeDirection = direction
+      setSettings({ ...settings, themeDirection })
+    },
+    [setSettings, settings]
+  )
+
+  const changeDirectionByLang = useCallback(
+    (lang: string) => {
+      const themeDirection = lang === 'ar' ? 'rtl' : 'ltr'
+      setSettings({ ...settings, themeDirection })
     },
     [setSettings, settings]
   )
@@ -91,6 +119,10 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       // Mode
       toggleMode,
       changeMode,
+      // Direction
+      toggleDirection,
+      changeDirection,
+      changeDirectionByLang,
       // Color Presets
       changeColorPresets,
       colorPresets: getColorPresets(settings.themeColorPresets),
@@ -101,6 +133,10 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       // Mode
       toggleMode,
       changeMode,
+      // Direction
+      toggleDirection,
+      changeDirection,
+      changeDirectionByLang,
       // Color Presets
       changeColorPresets
     ]
