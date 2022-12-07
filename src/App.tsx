@@ -1,8 +1,20 @@
 import React from 'react'
-import './App.css'
+// @theme
+import ThemeProvider from '@/theme'
+import { ThemeSettings, ThemeSettingsProvider } from '@/theme/settings'
+//
+import { DashboardPage } from '@/pages/dashboard'
 
 function App(): JSX.Element {
-  return <></>
+  return (
+    <ThemeSettingsProvider>
+      <ThemeProvider>
+        <ThemeSettings>
+          <DashboardPage />
+        </ThemeSettings>
+      </ThemeProvider>
+    </ThemeSettingsProvider>
+  )
 }
 
 export default App
