@@ -7,7 +7,7 @@ const DashboardPage = (): JSX.Element => {
   const { isMobile, isTablet, isLaptop, isDesktop, isTV, size: screenSize } = useScreenSize()
 
   //
-  const { changeColorPresets, changeMode, toggleMode, toggleDirection, changeLayout, toggleContrast } = useThemeSettingsContext()
+  const { changeColorPresets, changeMode, toggleMode, toggleDirection, changeLayout, toggleContrast, toggleStretch, resetSettings } = useThemeSettingsContext()
 
   return (
     <div>
@@ -83,6 +83,27 @@ const DashboardPage = (): JSX.Element => {
         onClick={toggleContrast}
       >
         Toggle Contrast
+      </Button>
+
+      <br />
+
+      <Button
+        variant="contained"
+        onClick={toggleStretch}
+      >
+        Toggle Stretch
+      </Button>
+
+      <br />
+
+      <Button
+        variant="contained"
+        onClick={() => {
+          resetSettings()
+          console.log('reset')
+        }}
+      >
+        Reset Settings
       </Button>
     </div>
   )

@@ -28,11 +28,11 @@ const initialState: SettingsContextProps = {
   // Color
   changeColorPresets: () => {},
   colorPresets: defaultColorPreset,
-  colorPresetsOption: []
-  // // Stretch
-  // onToggleStretch: () => {},
-  // // Reset
-  // onResetSettings: () => {}
+  colorPresetsOption: [],
+  // Stretch
+  toggleStretch: () => {},
+  // Reset
+  resetSettings: () => {}
 }
 
 // ----------------------------------------------------------------------
@@ -137,6 +137,18 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
     [setSettings, settings]
   )
 
+  // Stretch
+  const toggleStretch = useCallback(() => {
+    const themeStretch = !(settings.themeStretch as boolean)
+    setSettings({ ...settings, themeStretch })
+  }, [setSettings, settings])
+
+  // Reset
+  const resetSettings = useCallback(() => {
+    console.log(defaultSettings)
+    setSettings(defaultSettings)
+  }, [setSettings])
+
   const memoizedValue = useMemo(
     () => ({
       ...settings,
@@ -156,7 +168,11 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       // Color Presets
       changeColorPresets,
       colorPresets: getColorPresets(settings.themeColorPresets),
-      colorPresetsOption
+      colorPresetsOption,
+      // Stretch
+      toggleStretch,
+      // Reset
+      resetSettings
     }),
     [
       settings,
@@ -174,7 +190,11 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       toggleContrast,
       changeContrast,
       // Color Presets
-      changeColorPresets
+      changeColorPresets,
+      // Stretch
+      toggleStretch,
+      // Reset
+      resetSettings
     ]
   )
 

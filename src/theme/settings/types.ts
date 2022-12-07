@@ -51,9 +51,9 @@ export type SettingsContextProps = SettingsValueProps & {
   // Color
   changeColorPresets: (colorPresets: ThemeColorPresetsValue) => void
 
-  // // Stretch
-  // onToggleStretch: VoidFunction
-  //
-  // // Reset
-  // onResetSettings: VoidFunction
+  // Stretch
+  toggleStretch: VoidFunction
+
+  // Reset
+  resetSettings: VoidFunction
 }
