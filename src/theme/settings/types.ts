@@ -33,23 +33,23 @@ export type SettingsContextProps = SettingsValueProps & {
 
   // Mode
   toggleMode: VoidFunction
-  changeMode: (mode: string) => void
+  changeMode: (mode: ThemeModeValue) => void
 
   // Direction
   toggleDirection: VoidFunction
-  changeDirection: (direction: string) => void
+  changeDirection: (direction: ThemeDirectionValue) => void
   changeDirectionByLang: (lang: string) => void
 
-  // // Layout
-  // onToggleLayout: VoidFunction
-  // onChangeLayout: (event: React.ChangeEvent<HTMLInputElement>) => void
-  //
+  // Layout
+  toggleLayout: VoidFunction
+  changeLayout: (layout: ThemeLayoutValue) => void
+
   // // Contrast
   // onToggleContrast: VoidFunction
   // onChangeContrast: (event: React.ChangeEvent<HTMLInputElement>) => void
 
   // Color
-  changeColorPresets: (colorPresets: string) => void
+  changeColorPresets: (colorPresets: ThemeColorPresetsValue) => void
 
   // // Stretch
   // onToggleStretch: VoidFunction

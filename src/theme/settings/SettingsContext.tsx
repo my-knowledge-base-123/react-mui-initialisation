@@ -4,7 +4,7 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 // utils
 import localStorageAvailable from '@/utils/localStorageAvailable'
 //
-import { SettingsContextProps } from './types'
+import { SettingsContextProps, ThemeColorPresetsValue, ThemeDirectionValue, ThemeLayoutValue, ThemeModeValue } from './types'
 import { defaultSettings } from './defaultSettings'
 import { colorPresetsOption, defaultColorPreset, getColorPresets } from './colorPresets'
 
@@ -19,9 +19,9 @@ const initialState: SettingsContextProps = {
   toggleDirection: () => {},
   changeDirection: () => {},
   changeDirectionByLang: () => {},
-  // // Layout
-  // onToggleLayout: () => {},
-  // onChangeLayout: () => {},
+  // Layout
+  toggleLayout: () => {},
+  changeLayout: () => {},
   // // Contrast
   // onToggleContrast: () => {},
   // onChangeContrast: () => {},
@@ -75,9 +75,8 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   }, [setSettings, settings])
 
   const changeMode = useCallback(
-    (mode: string) => {
-      const themeMode = mode
-      setSettings({ ...settings, themeMode })
+    (mode: ThemeModeValue) => {
+      setSettings({ ...settings, themeMode: mode })
     },
     [setSettings, settings]
   )
@@ -89,9 +88,8 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   }, [setSettings, settings])
 
   const changeDirection = useCallback(
-    (direction: string) => {
-      const themeDirection = direction
-      setSettings({ ...settings, themeDirection })
+    (direction: ThemeDirectionValue) => {
+      setSettings({ ...settings, themeDirection: direction })
     },
     [setSettings, settings]
   )
@@ -104,9 +102,22 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
     [setSettings, settings]
   )
 
+  // Layout
+  const toggleLayout = useCallback(() => {
+    const themeLayout = settings.themeLayout === 'vertical' ? 'mini' : 'vertical'
+    setSettings({ ...settings, themeLayout })
+  }, [setSettings, settings])
+
+  const changeLayout = useCallback(
+    (layout: ThemeLayoutValue) => {
+      setSettings({ ...settings, themeLayout: layout })
+    },
+    [setSettings, settings]
+  )
+
   // Color Presets
   const changeColorPresets = useCallback(
-    (colorPresets: string) => {
+    (colorPresets: ThemeColorPresetsValue) => {
       const themeColorPresets = colorPresets
       setSettings({ ...settings, themeColorPresets })
     },
@@ -123,6 +134,9 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       toggleDirection,
       changeDirection,
       changeDirectionByLang,
+      // Layout
+      toggleLayout,
+      changeLayout,
       // Color Presets
       changeColorPresets,
       colorPresets: getColorPresets(settings.themeColorPresets),
@@ -137,6 +151,9 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       toggleDirection,
       changeDirection,
       changeDirectionByLang,
+      // Layout
+      toggleLayout,
+      changeLayout,
       // Color Presets
       changeColorPresets
     ]

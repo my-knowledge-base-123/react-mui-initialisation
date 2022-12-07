@@ -7,7 +7,7 @@ const DashboardPage = (): JSX.Element => {
   const { isMobile, isTablet, isLaptop, isDesktop, isTV, size: screenSize } = useScreenSize()
 
   //
-  const { changeColorPresets, changeMode, toggleMode, toggleDirection } = useThemeSettingsContext()
+  const { changeColorPresets, changeMode, toggleMode, toggleDirection, changeLayout } = useThemeSettingsContext()
 
   return (
     <div>
@@ -65,6 +65,15 @@ const DashboardPage = (): JSX.Element => {
         onClick={toggleDirection}
       >
         Toggle Direction
+      </Button>
+
+      <br />
+
+      <Button
+        variant="contained"
+        onClick={() => changeLayout('horizontal')}
+      >
+        To Horizon Layout
       </Button>
     </div>
   )
