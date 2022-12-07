@@ -12,7 +12,7 @@ const DashboardPage = (): JSX.Element => {
   console.log(theme.typography.fontFamily)
 
   //
-  const { changeColorPresets } = useThemeSettingsContext()
+  const { changeColorPresets, changeMode, toggleMode } = useThemeSettingsContext()
 
   return (
     <div>
@@ -46,6 +46,19 @@ const DashboardPage = (): JSX.Element => {
         onClick={() => changeColorPresets('purple')}
       >
         To Purple
+      </Button>
+      <br />
+      <Button
+        variant="contained"
+        onClick={() => changeMode('dark')}
+      >
+        To Dark Mode
+      </Button>
+      <Button
+        variant="contained"
+        onClick={toggleMode}
+      >
+        Toggle Mode
       </Button>
     </div>
   )

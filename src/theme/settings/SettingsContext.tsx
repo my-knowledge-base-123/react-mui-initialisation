@@ -12,9 +12,9 @@ import { colorPresetsOption, defaultColorPreset, getColorPresets } from './color
 
 const initialState: SettingsContextProps = {
   ...defaultSettings,
-  // // Mode
-  // onToggleMode: () => {},
-  // onChangeMode: () => {},
+  // Mode
+  toggleMode: () => {},
+  changeMode: () => {},
   // // Direction
   // onToggleDirection: () => {},
   // onChangeDirection: () => {},
@@ -62,6 +62,20 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   //
   // const isArabic = langStorage === 'ar'
 
+  // Mode
+  const toggleMode = useCallback(() => {
+    const themeMode = settings.themeMode === 'light' ? 'dark' : 'light'
+    setSettings({ ...settings, themeMode })
+  }, [setSettings, settings])
+
+  const changeMode = useCallback(
+    (mode: string) => {
+      const themeMode = mode
+      setSettings({ ...settings, themeMode })
+    },
+    [setSettings, settings]
+  )
+
   // Color Presets
   const changeColorPresets = useCallback(
     (colorPresets: string) => {
@@ -74,6 +88,9 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   const memoizedValue = useMemo(
     () => ({
       ...settings,
+      // Mode
+      toggleMode,
+      changeMode,
       // Color Presets
       changeColorPresets,
       colorPresets: getColorPresets(settings.themeColorPresets),
@@ -81,6 +98,9 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
     }),
     [
       settings,
+      // Mode
+      toggleMode,
+      changeMode,
       // Color Presets
       changeColorPresets
     ]
