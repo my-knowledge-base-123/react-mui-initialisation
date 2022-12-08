@@ -1,16 +1,20 @@
 import React from 'react'
-// @theme
+// react-router
+import { BrowserRouter } from 'react-router-dom'
+// routes
+import Router from '@/router'
+// theme
 import ThemeProvider from '@/theme'
 import { ThemeSettings, ThemeSettingsProvider } from '@/theme/settings'
-//
-import { DashboardPage } from '@/pages/dashboard'
 
 function App(): JSX.Element {
   return (
     <ThemeSettingsProvider>
       <ThemeProvider>
         <ThemeSettings>
-          <DashboardPage />
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
         </ThemeSettings>
       </ThemeProvider>
     </ThemeSettingsProvider>
